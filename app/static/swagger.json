@@ -1,0 +1,94 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Concessionária",
+    "description": "API para gerenciamento de veículos da concessionária",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/concessionaria/": {
+      "get": {
+        "summary": "Listar todos os veículos",
+        "responses": {
+          "200": {
+            "description": "Lista de veículos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Veiculo" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Cadastrar novo veículo",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Veiculo" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Veículo criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Veiculo" }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro de validação"
+          }
+        }
+      }
+    },
+    "/concessionaria/{id}": {
+      "get": {
+        "summary": "Buscar veículo por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Veículo encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Veiculo" }
+              }
+            }
+          },
+          "404": {
+            "description": "Veículo não encontrado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Veiculo": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 1 },
+          "marca": { "type": "string", "example": "Honda" },
+          "modelo": { "type": "string", "example": "Civic" },
+          "versao": { "type": "string", "example": "EXL 2.0 Flex" },
+          "preco": { "type": "number", "format": "float", "example": 125000.50 },
+          "estoque": { "type": "integer", "example": 5 }
+        },
+        "required": ["marca", "modelo", "versao", "preco", "estoque"]
+      }
+    }
+  }
+}

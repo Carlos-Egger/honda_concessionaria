@@ -1,0 +1,2 @@
+from .endpoint_concessionaria_get import concessionaria_get_bp
+from .endpoint_concessionaria_post import concessionaria_post_bp
