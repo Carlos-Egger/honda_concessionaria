@@ -1,93 +1,140 @@
-# honda_concessionaria
+ Honda Concessionária - API REST
 
+API desenvolvida com Flask e PostgreSQL para gerenciar os veículos de uma concessionária Honda. Oferece funcionalidades de CRUD completas com suporte à paginação e implementa boas práticas de arquitetura para APIs.
 
+📆 Status do Projeto
 
-## Getting started
+✅ Em desenvolvimento ativo - contribuidores são bem-vindos!
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+🔌 Tecnologias Utilizadas
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Python 3.11+
 
-## Add your files
+Flask
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+Flask-SQLAlchemy
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/pedrohccoimbra123/honda_concessionaria.git
-git branch -M main
-git push -uf origin main
-```
+PostgreSQL (Render Cloud)
 
-## Integrate with your tools
+Gunicorn (Deploy)
 
-- [ ] [Set up project integrations](https://gitlab.com/pedrohccoimbra123/honda_concessionaria/-/settings/integrations)
+dotenv (gerenciamento de ambientes)
 
-## Collaborate with your team
+🚀 Instalação Local
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+git clone https://gitlab.com/pedrohccoimbra123/honda_concessionaria.git
+cd honda_concessionaria
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
 
-## Test and Deploy
+🔢 Configuração do .env
 
-Use the built-in continuous integration in GitLab.
+Crie um arquivo .env com as seguintes variáveis:
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+DB_USER=seu_usuario
+PASSWORD=sua_senha
+HOST=seu_host.render.com
+DB_PORT=5432
+DATABASE=nome_do_banco
+env=local
 
-***
+🔎 Endpoints Disponíveis
 
-# Editing this README
+✅ GET /concessionaria/
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Lista veículos com paginação.
 
-## Suggestions for a good README
+Query Params:
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+page (int) - página atual (default: 1)
 
-## Name
-Choose a self-explaining name for your project.
+per_page (int) - itens por página (default: 10)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+curl -X GET 'https://honda-concessionaria.onrender.com/concessionaria/?page=1&per_page=5'
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+✅ GET /concessionaria/{id}
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Busca um veículo pelo ID.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+curl -X GET 'https://honda-concessionaria.onrender.com/concessionaria/1'
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+➕ POST /concessionaria/
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+Cria um novo veículo.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+{
+  "modelo": "Civic",
+  "marca": "Honda",
+  "ano": 2023,
+  "cor": "Preto",
+  "preco": 120000.00
+}
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+curl -X POST 'https://honda-concessionaria.onrender.com/concessionaria/' \
+  -H 'Content-Type: application/json' \
+  -d '{"modelo":"Civic","marca":"Honda","ano":2023,"cor":"Preto","preco":120000.0}'
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+✍️ PUT /concessionaria/{id}
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+Atualiza um veículo existente.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+curl -X PUT 'https://honda-concessionaria.onrender.com/concessionaria/1' \
+  -H 'Content-Type: application/json' \
+  -d '{"modelo":"City","marca":"Honda","ano":2024,"cor":"Prata","preco":98000.0}'
 
-## License
-For open source projects, say how it is licensed.
+❌ DELETE /concessionaria/{id}
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Remove um veículo do banco de dados.
+
+curl -X DELETE 'https://honda-concessionaria.onrender.com/concessionaria/1'
+
+📈 Códigos de Status Comuns
+
+Código
+
+Descrição
+
+200
+
+Sucesso
+
+201
+
+Criado com sucesso
+
+204
+
+Sem conteúdo
+
+400
+
+Requisição inválida
+
+404
+
+Recurso não encontrado
+
+500
+
+Erro interno no servidor
+
+🚧 Como Contribuir
+
+Fork este repositório
+
+Crie uma branch: git checkout -b minha-feature
+
+Commit suas alterações: git commit -m 'feat: minha feature'
+
+Push para sua branch: git push origin minha-feature
+
+Crie um Pull Request
+
+👤 Autor
+
+Pedro Coimbra - GitLab
+
+📚 Licença
+
+Este projeto está licenciado sob a Licença MIT.
