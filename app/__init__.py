@@ -52,7 +52,7 @@ def create_app():
 
     # Configuração do Swagger UI
     SWAGGER_URL = "/swagger"
-    API_URL = "/static/swagger.json"
+    API_URL = "/static/swagger"
 
     swagger_ui_blueprint = get_swaggerui_blueprint(
         SWAGGER_URL,
