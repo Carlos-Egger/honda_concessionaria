@@ -1,68 +1,82 @@
- Honda Concessionária - API REST
+#  Honda Concessionária - API REST
 
-API desenvolvida com Flask e PostgreSQL para gerenciar os veículos de uma concessionária Honda. Oferece funcionalidades de CRUD completas com suporte à paginação e implementa boas práticas de arquitetura para APIs.
+API desenvolvida com **Flask** e **PostgreSQL** para gerenciar os veículos de uma concessionária Honda. Oferece funcionalidades de **CRUD completas** com suporte à **paginação** e implementa boas práticas de arquitetura para APIs modernas.
 
-📆 Status do Projeto
+---
 
-✅ Em desenvolvimento ativo - contribuidores são bem-vindos!
 
-🔌 Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
-Python 3.11+
+- Python 3.11+
+- Flask
+- Flask-SQLAlchemy
+- PostgreSQL (Render Cloud)
+- Gunicorn (Deploy)
+- dotenv (Gerenciamento de ambientes)
 
-Flask
+---
 
-Flask-SQLAlchemy
+##  Instalação Local
 
-PostgreSQL (Render Cloud)
-
-Gunicorn (Deploy)
-
-dotenv (gerenciamento de ambientes)
-
-🚀 Instalação Local
-
+```bash
 git clone https://gitlab.com/pedrohccoimbra123/honda_concessionaria.git
 cd honda_concessionaria
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+```
 
-🔢 Configuração do .env
+---
 
-Crie um arquivo .env com as seguintes variáveis:
+###  Configuração do `.env`
 
+Crie um arquivo `.env` com as seguintes variáveis:
+
+```env
 DB_USER=seu_usuario
 PASSWORD=sua_senha
 HOST=seu_host.render.com
 DB_PORT=5432
 DATABASE=nome_do_banco
 env=local
+```
 
-🔎 Endpoints Disponíveis
+---
 
-✅ GET /concessionaria/
+##  Endpoints Disponíveis
 
-Lista veículos com paginação.
+### `GET /concessionaria/`
 
-Query Params:
+Retorna uma lista paginada de veículos.
 
-page (int) - página atual (default: 1)
+#### Parâmetros (query string):
 
-per_page (int) - itens por página (default: 10)
+- `page`: int (padrão: 1)
+- `per_page`: int (padrão: 10)
 
+```bash
 curl -X GET 'https://honda-concessionaria.onrender.com/concessionaria/?page=1&per_page=5'
+```
 
-✅ GET /concessionaria/{id}
+---
 
-Busca um veículo pelo ID.
+###  `GET /concessionaria/{id}`
 
+Busca um veículo pelo seu ID.
+
+```bash
 curl -X GET 'https://honda-concessionaria.onrender.com/concessionaria/1'
+```
 
-➕ POST /concessionaria/
+---
 
-Cria um novo veículo.
+###  `POST /concessionaria/`
 
+Cria um novo veículo no banco de dados.
+
+#### Exemplo de JSON:
+
+```json
 {
   "modelo": "Civic",
   "marca": "Honda",
@@ -70,71 +84,56 @@ Cria um novo veículo.
   "cor": "Preto",
   "preco": 120000.00
 }
+```
 
-curl -X POST 'https://honda-concessionaria.onrender.com/concessionaria/' \
-  -H 'Content-Type: application/json' \
-  -d '{"modelo":"Civic","marca":"Honda","ano":2023,"cor":"Preto","preco":120000.0}'
+```bash
+curl -X POST 'https://honda-concessionaria.onrender.com/concessionaria/'   -H 'Content-Type: application/json'   -d '{"modelo":"Civic","marca":"Honda","ano":2023,"cor":"Preto","preco":120000.0}'
+```
 
-✍️ PUT /concessionaria/{id}
+---
 
-Atualiza um veículo existente.
+###  `PUT /concessionaria/{id}`
 
-curl -X PUT 'https://honda-concessionaria.onrender.com/concessionaria/1' \
-  -H 'Content-Type: application/json' \
-  -d '{"modelo":"City","marca":"Honda","ano":2024,"cor":"Prata","preco":98000.0}'
+Atualiza os dados de um veículo existente.
 
-❌ DELETE /concessionaria/{id}
+```bash
+curl -X PUT 'https://honda-concessionaria.onrender.com/concessionaria/1'   -H 'Content-Type: application/json'   -d '{"modelo":"City","marca":"Honda","ano":2024,"cor":"Prata","preco":98000.0}'
+```
 
-Remove um veículo do banco de dados.
+---
 
+###  `DELETE /concessionaria/{id}`
+
+Remove um veículo do banco de dados pelo ID.
+
+```bash
 curl -X DELETE 'https://honda-concessionaria.onrender.com/concessionaria/1'
+```
 
-📈 Códigos de Status Comuns
+---
 
-Código
+##  Códigos de Status Comuns
 
-Descrição
+| Código | Descrição                |
+|--------|--------------------------|
+| 200    | Sucesso                  |
+| 201    | Criado com sucesso       |
+| 204    | Sem conteúdo             |
+| 400    | Requisição inválida      |
+| 404    | Recurso não encontrado   |
+| 500    | Erro interno no servidor |
 
-200
+---
 
-Sucesso
 
-201
+---
 
-Criado com sucesso
+##  Autor
 
-204
+**Pedro Coimbra** – [GitLab](https://gitlab.com/pedrohccoimbra123) - Matricula: 22070215
+**Carlos Egger** – [GitLab](https://gitlab.com/Carlos-Egger) - Matricula: 22070044
+---
 
-Sem conteúdo
+## 📚 Licença
 
-400
-
-Requisição inválida
-
-404
-
-Recurso não encontrado
-
-500
-
-Erro interno no servidor
-
-🚧 Como Contribuir
-
-Fork este repositório
-
-Crie uma branch: git checkout -b minha-feature
-
-Commit suas alterações: git commit -m 'feat: minha feature'
-
-Push para sua branch: git push origin minha-feature
-
-Crie um Pull Request
-
-👤 Autor
-
-Pedro Coimbra - GitLab
-
-📚 Licença
-
-Este projeto está licenciado sob a Licença MIT.
+Este projeto está licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT).
