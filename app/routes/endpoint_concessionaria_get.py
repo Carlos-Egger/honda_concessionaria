@@ -9,7 +9,13 @@ concessionaria_get_bp = Blueprint('concessionaria_get', __name__, url_prefix='/c
 @concessionaria_get_bp.route('/', methods=['GET'])
 def listar_veiculos():
     try:
-        veiculos = get_all_veiculos()
+        # Captura os parâmetros da query string (ex: ?page=2&per_page=20)
+        page = request.args.get('page', default=1, type=int)
+        per_page = request.args.get('per_page', default=10, type=int)
+
+        # Chamada da função com paginação
+        veiculos = get_all_veiculos(page=page, per_page=per_page)
+
         return jsonify(veiculos), 200
     except Exception as e:
         return jsonify({"erro": str(e)}), 500

@@ -3,12 +3,27 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 # Buscar todos os veículos
-def get_all_veiculos():
+# Buscar todos os veículos com paginação
+def get_all_veiculos(page=1, per_page=10):
+    """
+    Retorna uma lista paginada de veículos.
+
+    :param page: Página atual (padrão: 1)
+    :param per_page: Itens por página (padrão: 10)
+    :return: Dicionário com dados da página
+    """
     try:
-        veiculos = Concessionaria.query.all()
-        return [v.to_dict() for v in veiculos]
+        pagination = Concessionaria.query.paginate(page=page, per_page=per_page, error_out=False)
+        return {
+            "veiculos": [v.to_dict() for v in pagination.items],
+            "pagina_atual": pagination.page,
+            "total_paginas": pagination.pages,
+            "total_itens": pagination.total,
+            "tem_proxima": pagination.has_next,
+            "tem_anterior": pagination.has_prev
+        }
     except SQLAlchemyError as e:
-        raise Exception(f"Erro ao buscar todos os veículos: {str(e)}")
+        raise Exception(f"Erro ao buscar veículos com paginação: {str(e)}")
 
 
 # Buscar veículo por ID
