@@ -7,5 +7,5 @@ if __name__ == "__main__":
         from waitress import serve
         print("Rodando com Waitress no Windows...")
         serve(app, host="0.0.0.0", port=5000)
-    else:  # Se for Linux (ex: no Render), usa Flask normal
-        app.run(host="0.0.0.0", port=5000)
+    else:  # Se for Linux (ex: no Render), apenas imprime uma mensagem
+        print("Rodando no ambiente de produção com Gunicorn!")
