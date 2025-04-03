@@ -13,6 +13,7 @@ API desenvolvida com **Flask** e **PostgreSQL** para gerenciar os veículos de u
 - PostgreSQL (Render Cloud)
 - Gunicorn (Deploy)
 - dotenv (Gerenciamento de ambientes)
+- SwaggerUI (Interface de documentação dos Endpoints)
 
 ---
 
@@ -44,6 +45,15 @@ env=local
 ---
 
 ##  Endpoints Disponíveis
+
+### `SwaggerUI`
+
+Endpoint do SwaggerUI para facilitar a exploração dos demais Endpoints da API
+```
+  https://honda-concessionaria.onrender.com/swagger
+
+```
+
 
 ### `GET /concessionaria/`
 
