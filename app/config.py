@@ -9,6 +9,6 @@ class Config:
     # Importante: usamos postgresql+psycopg2 para garantir compatibilidade
     SQLALCHEMY_DATABASE_URI = (
         f"postgresql://{os.getenv('DB_USER')}:{os.getenv('PASSWORD')}"
-        f"@{os.getenv('HOST')}:{os.getenv('PORT')}/{os.getenv('DATABASE')}"
+        f"@{os.getenv('HOST')}:{os.getenv("DB_PORT")}/{os.getenv('DATABASE')}"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
