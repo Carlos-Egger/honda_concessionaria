@@ -72,6 +72,61 @@
             "description": "Veículo não encontrado"
           }
         }
+      },
+      "put": {
+        "summary": "Atualizar veículo por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Veiculo" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Veículo atualizado com sucesso"
+          },
+          "400": {
+            "description": "Dados ausentes ou mal formatados"
+          },
+          "404": {
+            "description": "Veículo não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remover veículo por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Veículo removido com sucesso"
+          },
+          "404": {
+            "description": "Veículo não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
       }
     }
   },
@@ -80,7 +135,6 @@
       "Veiculo": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer", "example": 1 },
           "marca": { "type": "string", "example": "Honda" },
           "modelo": { "type": "string", "example": "Civic" },
           "versao": { "type": "string", "example": "EXL 2.0 Flex" },

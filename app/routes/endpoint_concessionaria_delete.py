@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from app.services.db_concessionaria_post import delete_veiculo
+from app.services.db_concessionaria_delete import delete_veiculo
 
 # Criação do Blueprint para DELETE
 concessionaria_delete_bp = Blueprint('concessionaria_delete', __name__, url_prefix='/concessionaria')

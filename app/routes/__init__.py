@@ -1,2 +1,4 @@
 from .endpoint_concessionaria_get import concessionaria_get_bp
 from .endpoint_concessionaria_post import concessionaria_post_bp
+from .endpoint_concessionaria_delete import concessionaria_delete_bp
+from .endpoint_concessionaria_put import concessionaria_put_bp

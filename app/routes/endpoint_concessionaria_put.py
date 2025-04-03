@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.services.db_concessionaria_post import update_veiculo
+from app.services.db_concessionaria_update import update_veiculo
 
 # Criação do Blueprint para PUT
 concessionaria_put_bp = Blueprint('concessionaria_put', __name__, url_prefix='/concessionaria')

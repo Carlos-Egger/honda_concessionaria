@@ -4,7 +4,9 @@ from flask_cors import CORS
 from flask_restx import Api
 from flask_swagger_ui import get_swaggerui_blueprint
 from dotenv import load_dotenv
+import os
 
+# Criando uma única instância de SQLAlchemy
 db = SQLAlchemy()
 
 
@@ -15,11 +17,16 @@ def create_app():
     # Carregar variáveis de ambiente do .env
     load_dotenv()
 
-    # Configuração do Flask a partir de um objeto de configuração
-    app.config.from_object("app.config.Config")
+    # Configuração correta do Flask a partir da classe Config
+    from app.config import Config
+    app.config.from_object(Config)
 
-    # Inicialização da extensão SQLAlchemy
+    # Inicialização correta da extensão SQLAlchemy
     db.init_app(app)
+
+    # Criar as tabelas no banco de dados (se não existirem)
+    with app.app_context():
+        db.create_all()  # Certifique-se de que a criação ocorre no contexto correto
 
     # Habilitar CORS
     CORS(app)
@@ -35,13 +42,13 @@ def create_app():
     # Registrar os Blueprints das rotas
     from app.routes.endpoint_concessionaria_get import concessionaria_get_bp
     from app.routes.endpoint_concessionaria_post import concessionaria_post_bp
+    from app.routes.endpoint_concessionaria_delete import concessionaria_delete_bp
+    from app.routes.endpoint_concessionaria_put import concessionaria_put_bp
 
     app.register_blueprint(concessionaria_get_bp)
     app.register_blueprint(concessionaria_post_bp)
-
-    # Criar as tabelas no banco de dados (se não existirem)
-    with app.app_context():
-        db.create_all()
+    app.register_blueprint(concessionaria_delete_bp)
+    app.register_blueprint(concessionaria_put_bp)
 
     # Configuração do Swagger UI
     SWAGGER_URL = "/swagger"

@@ -1,8 +1,5 @@
 from sqlalchemy import Column, Integer, String, Float
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
-
+from app import db
 
 class Concessionaria(db.Model):
     __tablename__ = 'tb_concessionaria'
