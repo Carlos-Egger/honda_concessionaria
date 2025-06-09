@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Float
 from app import db
 
 class Concessionaria(db.Model):
-    __tablename__ = 'tb_concessionaria'
+    __tablename__ = 'carros'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     marca = Column(String, nullable=False)
