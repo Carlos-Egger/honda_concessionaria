@@ -140,9 +140,9 @@ curl -X DELETE 'https://honda-concessionaria.onrender.com/concessionaria/1'
 
 ##  Autor
 
-**Pedro Coimbra** – [GitLab](https://gitlab.com/pedrohccoimbra123) - Matricula: 22070215
+**Carlos Egger** – [GitHub](https://github.com/Carlos-Egger) - Matricula: 22070044
 ---
-**Carlos Egger** – [GitLab](https://gitlab.com/Carlos-Egger) - Matricula: 22070044
+**Pedro Coimbra** – [GitHub](https://github.com/pedrohccoimbra123) - Matricula: 22070215
 ---
 
 ## 📚 Licença
