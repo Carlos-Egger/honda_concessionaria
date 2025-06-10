@@ -9,7 +9,7 @@ class TestGetServices:
             result = get_all_veiculos(page=1, per_page=2)
             assert len(result['veiculos']) == 2
             assert result['pagina_atual'] == 1
-            assert result['total'] == 3
+            assert result['total_itens'] == 3
 
     def test_get_veiculo_by_id(self, app, init_db):
         with app.app_context():
