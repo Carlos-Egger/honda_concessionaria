@@ -1,17 +1,16 @@
 from app.models.tb_concessionaria import Concessionaria
 from sqlalchemy.exc import SQLAlchemyError
-from app import db  # Certifique-se de importar a instância do banco corretamente
+from app import db  # Importar instância do banco corretamente
 
-# Deletar veículo por ID
 def delete_veiculo(veiculo_id):
     try:
         veiculo = Concessionaria.query.get(veiculo_id)
         if not veiculo:
-            return {"message": "Veículo não encontrado"}, 404
+            return False
 
         db.session.delete(veiculo)
         db.session.commit()
-        return {"message": "Veículo deletado com sucesso"}, 200
-    except SQLAlchemyError as e:
+        return True
+    except SQLAlchemyError:
         db.session.rollback()
-        raise Exception(f"Erro ao deletar veículo: {str(e)}")
+        raise  # relança a exceção para o controlador tratar
