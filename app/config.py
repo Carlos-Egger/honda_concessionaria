@@ -7,6 +7,3 @@ class Config:
         'postgresql://postgres:postgres@localhost:5432/concessionaria'
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
