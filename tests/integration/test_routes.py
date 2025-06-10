@@ -7,7 +7,7 @@ class TestRoutes:
         assert response.status_code == 200
         data = response.get_json()
         assert len(data['veiculos']) == 3
-        assert data['total'] == 3
+        assert data['total_itens'] == 3
 
     def test_get_veiculo_by_id(self, client, init_db):
         with client.application.app_context():
