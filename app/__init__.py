@@ -19,10 +19,10 @@ def create_app():
     db.init_app(app)
     
     # Registrar blueprints
-    from app.routes.endpoint_get import concessionaria_get_bp
-    from app.routes.endpoint_post import concessionaria_post_bp
-    from app.routes.endpoint_put import concessionaria_put_bp
-    from app.routes.endpoint_delete import concessionaria_delete_bp
+    from app.routes.endpoint_concessionaria_get import concessionaria_get_bp
+    from app.routes.endpoint_concessionaria_post import concessionaria_post_bp
+    from app.routes.endpoint_concessionaria_put import concessionaria_put_bp
+    from app.routes.endpoint_concessionaria_delete import concessionaria_delete_bp
     
     app.register_blueprint(concessionaria_get_bp)
     app.register_blueprint(concessionaria_post_bp)
