@@ -9,6 +9,12 @@ class Concessionaria(db.Model):
     ano = db.Column(db.Integer, nullable=False)
     cor = db.Column(db.String(30), nullable=False)
     
+    def __init__(self, nome, marca, ano, cor, **kwargs):
+        self.nome = nome
+        self.marca = marca
+        self.ano = ano
+        self.cor = cor
+    
     def to_dict(self):
         return {
             'id': self.id,
