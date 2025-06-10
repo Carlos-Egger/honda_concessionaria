@@ -9,7 +9,7 @@ class Concessionaria(db.Model):
     ano = db.Column(db.Integer, nullable=False)
     cor = db.Column(db.String(30), nullable=False)
     
-    def __init__(self, nome, marca, ano, cor, **kwargs):
+    def __init__(self, nome, marca, ano, cor):
         self.nome = nome
         self.marca = marca
         self.ano = ano

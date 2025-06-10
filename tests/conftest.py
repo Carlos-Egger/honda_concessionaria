@@ -1,38 +1,46 @@
 import pytest
+import sys
+from pathlib import Path
+
+# Adiciona o diretório raiz ao PYTHONPATH
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from app import create_app, db
 from app.models.tb_concessionaria import Concessionaria
 
 @pytest.fixture(scope='module')
 def app():
-    """Configuração da aplicação para testes"""
+    """Fixture para criar e configurar a aplicação Flask"""
     app = create_app()
     app.config['TESTING'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/concessionaria_test'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+    # Cria todas as tabelas
     with app.app_context():
         db.create_all()
-
+    
     yield app
-
+    
+    # Limpa o banco de dados após os testes
     with app.app_context():
         db.drop_all()
 
 @pytest.fixture
 def client(app):
-    """Cliente de teste para requisições HTTP"""
+    """Fixture para criar um cliente de teste"""
     return app.test_client()
 
 @pytest.fixture
 def init_db(app):
-    """Inicializa o banco de dados com dados de teste"""
+    """Fixture para inicializar o banco de dados com dados de teste"""
     with app.app_context():
-        # Limpa dados existentes
+        # Limpa o banco
         db.session.rollback()
         for table in reversed(db.metadata.sorted_tables):
             db.session.execute(table.delete())
         db.session.commit()
-
+        
         # Adiciona dados de teste
         veiculos = [
             Concessionaria(nome='Gol', marca='Volkswagen', ano=2020, cor='Preto'),
@@ -41,8 +49,9 @@ def init_db(app):
         ]
         db.session.bulk_save_objects(veiculos)
         db.session.commit()
-
+    
     yield
-
+    
+    # Limpeza final
     with app.app_context():
         db.session.rollback()

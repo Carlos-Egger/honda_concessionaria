@@ -51,6 +51,7 @@ jobs:
     - name: Run tests
       env:
         DATABASE_URL: postgresql://postgres:postgres@localhost:5432/concessionaria_test
+        PYTHONPATH: ${{ github.workspace }}
       run: |
         python -m pytest tests/ -v --cov=app --cov-report=xml
     

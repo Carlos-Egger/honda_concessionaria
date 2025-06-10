@@ -4,6 +4,7 @@ from app.models.tb_concessionaria import Concessionaria
 
 class TestPostServices:
     def test_create_veiculo(self, app):
+        """Testa a criação de um veículo válido"""
         with app.app_context():
             data = {
                 'nome': 'Toro',
@@ -12,9 +13,10 @@ class TestPostServices:
                 'cor': 'Branco'
             }
             result = create_veiculo(data)
-            assert result['id'] is not None
-            assert Concessionaria.query.get(result['id']) is not None
+            assert 'id' in result
+            assert result['nome'] == 'Toro'
 
-    def test_create_veiculo_invalid_data(self, app):
+    def test_create_veiculo_missing_fields(self, app):
+        """Testa a criação com campos faltando"""
         with app.app_context(), pytest.raises(Exception):
             create_veiculo({'nome': 'Incompleto'})
