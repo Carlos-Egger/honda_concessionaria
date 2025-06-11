@@ -135,6 +135,39 @@ curl -X DELETE 'https://honda-concessionaria.onrender.com/concessionaria/1'
 
 ---
 
+# Integração Contínua (CI) com GitHub Actions
+
+Este projeto conta com um pipeline de CI configurado via GitHub Actions para garantir a qualidade do código e a estabilidade da aplicação.
+
+## O que o pipeline realiza?
+
+- **Linting**: Usa o `flake8` para analisar o código Python e garantir conformidade com padrões de estilo, evitando problemas comuns.
+- **Testes automatizados**: Executa os testes com `pytest` para validar o comportamento da API.
+- **Banco PostgreSQL local no CI**: Um container do PostgreSQL é iniciado no ambiente do GitHub Actions para rodar os testes de integração contra um banco real.
+- **Variáveis de ambiente**: Configuradas para simular o ambiente local e permitir a conexão segura com o banco de dados no CI.
+
+## Fluxo simplificado do workflow
+
+1. Código é enviado (`push`/`PR`).
+2. O GitHub Actions sobe um container PostgreSQL para testes.
+3. O ambiente virtual é criado e as dependências instaladas.
+4. O `flake8` verifica o estilo do código.
+5. O `pytest` executa os testes, incluindo os que acessam o banco.
+6. Relatório de sucesso/falha é gerado.
+
+---
+
+# Sobre o uso do JWT (JSON Web Tokens)
+
+A API utiliza o JWT para autenticação e autorização de rotas protegidas. Usuários precisam realizar login para obter um token JWT que deve ser enviado no cabeçalho `Authorization` das requisições subsequentes.
+
+- O token é válido por um tempo configurado (exemplo: 15 minutos).
+- O token deve ser enviado no formato: `Authorization: Bearer <access_token>`.
+- Rotas protegidas usam o decorator `@jwt_required()` para garantir o acesso autenticado.
+- No backend, o token é validado automaticamente e o usuário autenticado pode ser identificado via `get_jwt_identity()`.
+
+Isso garante uma camada segura de autenticação sem a necessidade de armazenar sessão no servidor.
+
 
 ---
 
@@ -142,9 +175,8 @@ curl -X DELETE 'https://honda-concessionaria.onrender.com/concessionaria/1'
 
 **Carlos Egger** – [GitHub](https://github.com/Carlos-Egger) - Matricula: 22070044
 ---
-**Pedro Coimbra** – [GitHub](https://github.com/pedrohccoimbra123) - Matricula: 22070215
----
 
 ## 📚 Licença
 
 Este projeto está licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT).
+
