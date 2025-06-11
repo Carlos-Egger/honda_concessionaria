@@ -1,5 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.services.db_concessionaria_post import create_veiculo
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
 
 # Criação do Blueprint para POST
 concessionaria_post_bp = Blueprint('concessionaria_post', __name__, url_prefix='/concessionaria')
@@ -7,6 +9,7 @@ concessionaria_post_bp = Blueprint('concessionaria_post', __name__, url_prefix='
 
 # POST: Criar novo veículo
 @concessionaria_post_bp.route('/', methods=['POST'])
+@jwt_required()
 def adicionar_veiculo():
     try:
         data = request.get_json()

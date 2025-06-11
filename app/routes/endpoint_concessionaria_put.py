@@ -1,11 +1,14 @@
 from flask import Blueprint, request, jsonify
 from app.services.db_concessionaria_update import update_veiculo
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
 
 # Criação do Blueprint para PUT
 concessionaria_put_bp = Blueprint('concessionaria_put', __name__, url_prefix='/concessionaria')
 
 # PUT: Atualizar veículo por ID
 @concessionaria_put_bp.route('/<int:veiculo_id>', methods=['PUT'])
+@jwt_required
 def atualizar_veiculo(veiculo_id):
     try:
         data = request.get_json()
