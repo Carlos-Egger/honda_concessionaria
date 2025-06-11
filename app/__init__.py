@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from dotenv import load_dotenv\
+from dotenv import load_dotenv
 from flask_jwt_extended import JWTManager
 
 db = SQLAlchemy()
