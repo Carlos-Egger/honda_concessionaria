@@ -9,8 +9,11 @@ class TestRoutes:
             'email': 'admin@example.com',
             'senha': 'admin123'
         })
+        print("Login status:", response.status_code)
+        print("Login response:", response.get_json())
         assert response.status_code == 200
         return response.get_json()['access_token']
+
 
     def test_get_all_veiculos(self, client, init_db):
         token = self.login_and_get_token(client)
