@@ -10,7 +10,7 @@ jwt = JWTManager()
 def create_app():
     """Cria e configura a aplicação Flask."""
     app = Flask(__name__)
-    app.config["JWT_SECRET_KEY"] = "sua_chave_secreta_super_segura"
+    app.config["JWT_SECRET_KEY"] = "supersecret123"
     jwt = JWTManager(app)
         
     # Carregar variáveis de ambiente do .env
