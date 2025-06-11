@@ -32,16 +32,16 @@ def client(app):
     """Fixture para criar um cliente de teste"""
     return app.test_client()
 
+
 @pytest.fixture
 def init_db(app):
     with app.app_context():
-        # Limpa o banco
         db.session.rollback()
         for table in reversed(db.metadata.sorted_tables):
             db.session.execute(table.delete())
         db.session.commit()
-        
-        # Adiciona dados de teste - veículos
+
+        # Veículos existentes
         veiculos = [
             Concessionaria(nome='Gol', marca='Volkswagen', ano=2020, cor='Preto'),
             Concessionaria(nome='Onix', marca='Chevrolet', ano=2021, cor='Branco'),
@@ -49,14 +49,12 @@ def init_db(app):
         ]
         db.session.bulk_save_objects(veiculos)
 
-        # Adiciona usuário para autenticação
-        user = User(email='admin@example.com')
-        user.set_password('admin123')  # ou como seu modelo hash a senha
-        db.session.add(user)
+        # Usuário admin para autenticação
+        admin = User(email='admin@example.com')
+        admin.set_password('admin123')
+        db.session.add(admin)
 
         db.session.commit()
-    
     yield
-    
     with app.app_context():
         db.session.rollback()

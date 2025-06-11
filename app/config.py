@@ -6,4 +6,4 @@ class Config:
         'postgresql://postgres:postgres@localhost:5432/concessionaria'
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    JWT_SECRET_KEY = 'sua_chave_muito_segura'
+    JWT_SECRET_KEY = 'supersecret123'
