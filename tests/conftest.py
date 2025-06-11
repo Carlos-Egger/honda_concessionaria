@@ -1,6 +1,7 @@
 import pytest
 import sys
 from pathlib import Path
+from app.models.user import User  # ajuste conforme seu projeto
 
 # Adiciona o diretório raiz ao PYTHONPATH
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -33,7 +34,6 @@ def client(app):
 
 @pytest.fixture
 def init_db(app):
-    """Fixture para inicializar o banco de dados com dados de teste"""
     with app.app_context():
         # Limpa o banco
         db.session.rollback()
@@ -41,17 +41,22 @@ def init_db(app):
             db.session.execute(table.delete())
         db.session.commit()
         
-        # Adiciona dados de teste
+        # Adiciona dados de teste - veículos
         veiculos = [
             Concessionaria(nome='Gol', marca='Volkswagen', ano=2020, cor='Preto'),
             Concessionaria(nome='Onix', marca='Chevrolet', ano=2021, cor='Branco'),
             Concessionaria(nome='HB20', marca='Hyundai', ano=2019, cor='Prata')
         ]
         db.session.bulk_save_objects(veiculos)
+
+        # Adiciona usuário para autenticação
+        user = User(email='admin@example.com')
+        user.set_password('admin123')  # ou como seu modelo hash a senha
+        db.session.add(user)
+
         db.session.commit()
     
     yield
     
-    # Limpeza final
     with app.app_context():
         db.session.rollback()
