@@ -43,9 +43,9 @@ def init_db(app):
 
         # Veículos existentes
         veiculos = [
-            Concessionaria(nome='Gol', marca='Volkswagen', ano=2020, cor='Preto'),
-            Concessionaria(nome='Onix', marca='Chevrolet', ano=2021, cor='Branco'),
-            Concessionaria(nome='HB20', marca='Hyundai', ano=2019, cor='Prata')
+            Concessionaria(nome='Fit', marca='Honda', ano=2020, cor='Preto'),
+            Concessionaria(nome='Civic', marca='Honda', ano=2021, cor='Branco'),
+            Concessionaria(nome='City', marca='Honda', ano=2019, cor='Prata')
         ]
         db.session.bulk_save_objects(veiculos)
 

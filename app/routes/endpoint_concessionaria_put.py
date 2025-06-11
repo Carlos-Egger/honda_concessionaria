@@ -8,7 +8,7 @@ concessionaria_put_bp = Blueprint('concessionaria_put', __name__, url_prefix='/c
 
 # PUT: Atualizar veículo por ID
 @concessionaria_put_bp.route('/<int:veiculo_id>', methods=['PUT'])
-@jwt_required
+@jwt_required()
 def atualizar_veiculo(veiculo_id):
     try:
         data = request.get_json()
